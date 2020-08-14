@@ -1,11 +1,11 @@
 # Search path
-VPATH = data:scripts:reports:models
+VPATH = data:scripts:models
 
 # Processed data files
 DATA = ncaa.rds difficulty_points.rds win_probability_train_data.rds win_probability_model_posterior.rds tournament_sample.rds reseeded_tournament_sample.rds upsets_tournament_sample.rds upsets_reseeded_tournament_sample.rds
 
 # Reports
-REPORTS = report.pdf
+REPORTS = README.md
 
 # All targets
 all : $(DATA) $(REPORTS)
@@ -21,5 +21,5 @@ win_probability_model_posterior.rds : win_probability_model_posterior.R win_prob
 %.rds : %.R
 	Rscript $<
 	
-%.pdf : %.Rmd
+%.md : %.Rmd
 	Rscript -e 'rmarkdown::render(input = "$<", output_options = list(html_preview = FALSE))'
