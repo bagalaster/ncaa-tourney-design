@@ -1,3 +1,3 @@
 # Reports
 
-Read the report [here](report.pdf)!
+Read the report [here](report.md)!
