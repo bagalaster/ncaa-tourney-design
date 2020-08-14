@@ -3,18 +3,6 @@ How March Madness Manufactures Cinderella Stories
 Mac Bagwell
 2020-08-14
 
-  - [Executive Summary](#executive-summary)
-  - [Bois’ Methods](#bois-methods)
-  - [Modeling win probabilities based on
-    seeds](#modeling-win-probabilities-based-on-seeds)
-      - [A (very) simple model](#a-very-simple-model)
-      - [A more sophisticated model](#a-more-sophisticated-model)
-      - [Win probabilities](#win-probabilities)
-      - [Round qualification rates](#round-qualification-rates)
-      - [Early-round upset sensitivity](#early-round-upset-sensitivity)
-  - [Reseeding](#reseeding)
-  - [Acknowledgements](#acknowledgements)
-
 ``` r
 # Imports
 library(tidyverse)
@@ -347,12 +335,6 @@ round_levels[-1] %>%
   )
 ```
 
-    ## Joining, by = "team_1_seed"
-    ## Joining, by = "team_1_seed"
-    ## Joining, by = "team_1_seed"
-    ## Joining, by = "team_1_seed"
-    ## Joining, by = "team_1_seed"
-
 ![](report_files/figure-gfm/unnamed-chunk-4-1.png)<!-- --> We see that
 the 10-12 seeds actually seem to qualify at higher rates than the 8 and
 9 seeds, despite qualifying for the round of 32 at lower rates. No
@@ -423,10 +405,6 @@ ncaa_seed_combos %>%
     fill = "Win %"
   )
 ```
-
-    ## Joining, by = c("seed_1", "seed_2")
-
-    ## Warning: Removed 116 rows containing missing values (geom_text).
 
 ![](report_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
@@ -510,11 +488,6 @@ params %>%
   )
 ```
 
-    ## Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0.
-    ## Using compatibility `.name_repair`.
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_warnings()` to see where this warning was generated.
-
 ![](report_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
@@ -594,8 +567,6 @@ expand_grid(seed_1 = 1:16, seed_2 = 1:16) %>%
     fill = "Win %"
   )
 ```
-
-    ## Joining, by = c("seed_1", "seed_2")
 
 ![](report_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
@@ -712,7 +683,8 @@ general.
 It is informative to see how first-round upsets affect the tournament.
 We can do this by simulating tournaments where we force a particular
 game outcome in the first round. Below are the marginal effects of the
-upsets of the top 4 seeds in the first round.
+upsets of the top 4 seeds in the first
+round.
 
 ``` r
 plot_qualify_pcts_upsets <- function(round, upset_sample, baseline_sample) {

@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 # Imports
 library(tidyverse)
 
@@ -223,7 +223,7 @@ facing seed 2 in the next round, and 16 points for every round after that for
 facing 1 seeds, for a total of 85 difficulty points.
 Bois then produces the following plot (at least a variant of it).
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 difficulty_points %>% 
   ggplot(aes(seed, diff_pts)) +
   geom_line() +
@@ -258,7 +258,7 @@ We would expect the win percentages in round 1 to decrease with seed and for
 the win percentages to decrease with round for a given seed. There are clear
 exceptions to both expectations. 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 round_levels %>% 
   map(seed_win_pcts) %>% 
   reduce(bind_rows) %>% 
@@ -298,7 +298,7 @@ is to look at each seed's qualification rate for different rounds; that is, the
 percent chance each seed makes it to each round. 
 Below are the qualification rates for the round of 32, the round of 16 (the "Sweet Sixteen"), the quarterfinals (the "Elite Eight"), and the semifinals (the "Final Four").
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 round_levels[-1] %>% 
   map(qualify_pcts) %>% 
   reduce(bind_rows) %>% 
@@ -343,7 +343,7 @@ every seed matchup; that is, count the number of times a seed `x` team beat a se
 and divide by the total number of times a seed `x` team played a seed `y` in the 
 data to obtain the desired probability estimate. Below is a visualization of these estimates.
 
-```{r fig.width=4}
+```{r fig.width=4, message=FALSE, warning=FALSE}
 ncaa_seed_combos %>% 
   bind_rows(
     ncaa_seed_combos %>% 
@@ -447,7 +447,7 @@ percentages by these seeds historically.
 
 The model is then fit in Stan. The posterior distribution of the fitted parameters is shown below.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 params %>% 
   magrittr::extract2("delta") %>% 
   as_tibble() %>% 
@@ -493,7 +493,7 @@ The fitted model now implies a distribution over game outcomes and tournament ou
 Below are the predicted win probabilities of each seed matchup are according 
 to our fitted model.
 
-```{r fig.width=4}
+```{r fig.width=4, message=FALSE, warning=FALSE}
 expand_grid(seed_1 = 1:16, seed_2 = 1:16) %>% 
   filter(seed_1 <= seed_2) %>% 
   mutate(
@@ -572,7 +572,7 @@ Below are the qualification rates for rounds until the Final Four in a sample of
 [^2]: We only simulate until the Final Four, so we only need to consider the 16 seeded
 teams in one region of the tournament in isolation.
 
-```{r}
+```{r message=TRUE, warning=FALSE}
 qualify_pcts_from_tournaments <- function(results, round) {
   r <- round_num(round)
   
@@ -654,7 +654,7 @@ do this by simulating tournaments where we force a particular game outcome in th
 first round. Below are the marginal effects of the upsets of the top 4 seeds in 
 the first round.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 plot_qualify_pcts_upsets <- function(round, upset_sample, baseline_sample) {
   upset_sample %>% 
     map(qualify_pcts_from_tournaments, round) %>% 
@@ -764,7 +764,7 @@ I drew a sample of 10,000 reseeded 16-team tournaments via simulation with
 the same win probability model as before and I compared qualification rates
 with the original sample of simulated 16-team tournaments.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 compare_reseeded_qualify_pcts <- function(round) {
   round_label <- pretty_round_label(round)
   
@@ -821,7 +821,7 @@ The marginal effects of a big first-round upset are also more uniform when resee
 Below is a visualization of the qualification rates conditioned on major upsets
 in a reseeded tournament.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 round_levels[3:5] %>% 
   map(
     plot_qualify_pcts_upsets, 
