@@ -335,11 +335,12 @@ round_levels[-1] %>%
   )
 ```
 
-![](report_files/figure-gfm/unnamed-chunk-4-1.png)<!-- --> We see that
-the 10-12 seeds actually seem to qualify at higher rates than the 8 and
-9 seeds, despite qualifying for the round of 32 at lower rates. No
-matter how you slice it, it appears that they have some kind of
-advantage that the theoretically better 8 and 9 seeds don’t.
+![](report_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+We see that the 10-12 seeds actually seem to qualify at higher rates
+than the 8 and 9 seeds, despite qualifying for the round of 32 at lower
+rates. No matter how you slice it, it appears that they have some kind
+of advantage that the theoretically better 8 and 9 seeds don’t.
 
 ## Modeling win probabilities based on seeds
 
@@ -398,7 +399,7 @@ ncaa_seed_combos %>%
   theme_minimal() +
   theme(legend.position = "bottom") +
   labs(
-    title = "Win prababilities of seed matchups",
+    title = "Win probabilities of seed matchups",
     subtitle = "Same-seed matchups ignored",
     x = "Team Seed",
     y = "Opponent Seed",
@@ -431,7 +432,7 @@ and `delta` is a 15-vector satisfying
 
 Informally, `delta[y]`should represent an incremental advantage that
 seed `j - 1` has over seed `j`, so that the total advantage that seed
-`i` has over seed `j` is given by `sum(delta[i..(j - 1)]`. Further,
+`i` has over seed `j` is given by `sum(delta[i..(j - 1)])`. Further,
 `beta` should be read as an overall “effect size” as it were. Large
 `beta` would mean that seed differences affect win probabilities a lot,
 and small `beta` would mean that seed differences were less meaningful
@@ -662,11 +663,6 @@ round_levels[2:5] %>%
   map(plot_comparison_qualify_pcts, tournament_sample) %>% 
   walk(print)
 ```
-
-    ## Joining, by = "team_1_seed"
-    ## Joining, by = "team_1_seed"
-    ## Joining, by = "team_1_seed"
-    ## Joining, by = "team_1_seed"
 
 ![](report_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->![](report_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->![](report_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->![](report_files/figure-gfm/unnamed-chunk-8-4.png)<!-- -->
 

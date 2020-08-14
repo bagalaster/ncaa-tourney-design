@@ -326,6 +326,7 @@ round_levels[-1] %>%
     y = "Qualification %"
   )
 ```
+
 We see that the 10-12 seeds actually seem to qualify
 at higher rates than the 8 and 9 seeds, despite qualifying for the round of 32
 at lower rates. No matter how you slice it, it appears that they have some
@@ -343,7 +344,7 @@ every seed matchup; that is, count the number of times a seed `x` team beat a se
 and divide by the total number of times a seed `x` team played a seed `y` in the 
 data to obtain the desired probability estimate. Below is a visualization of these estimates.
 
-```{r fig.width=4, message=FALSE, warning=FALSE}
+```{r fig.width=6, message=FALSE, warning=FALSE}
 ncaa_seed_combos %>% 
   bind_rows(
     ncaa_seed_combos %>% 
@@ -387,7 +388,7 @@ ncaa_seed_combos %>%
   theme_minimal() +
   theme(legend.position = "bottom") +
   labs(
-    title = "Win prababilities of seed matchups",
+    title = "Win probabilities of seed matchups",
     subtitle = "Same-seed matchups ignored",
     x = "Team Seed",
     y = "Opponent Seed",
@@ -417,7 +418,7 @@ and `delta` is a 15-vector satisfying
 
 Informally, `delta[y]`should represent an incremental advantage that seed `j - 1`
 has over seed `j`, so that the total advantage that seed `i` has over seed `j` is
-given by `sum(delta[i..(j - 1)]`. Further, `beta` should be read
+given by `sum(delta[i..(j - 1)])`. Further, `beta` should be read
 as an overall "effect size" as it were. Large `beta` would mean that seed
 differences affect win probabilities a lot, and small `beta` would mean that
 seed differences were less meaningful in this way.
@@ -493,7 +494,7 @@ The fitted model now implies a distribution over game outcomes and tournament ou
 Below are the predicted win probabilities of each seed matchup are according 
 to our fitted model.
 
-```{r fig.width=4, message=FALSE, warning=FALSE}
+```{r fig.width=6, message=FALSE, warning=FALSE}
 expand_grid(seed_1 = 1:16, seed_2 = 1:16) %>% 
   filter(seed_1 <= seed_2) %>% 
   mutate(
@@ -572,7 +573,7 @@ Below are the qualification rates for rounds until the Final Four in a sample of
 [^2]: We only simulate until the Final Four, so we only need to consider the 16 seeded
 teams in one region of the tournament in isolation.
 
-```{r message=TRUE, warning=FALSE}
+```{r message=FALSE, warning=FALSE}
 qualify_pcts_from_tournaments <- function(results, round) {
   r <- round_num(round)
   
